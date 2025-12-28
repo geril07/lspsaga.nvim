@@ -49,7 +49,7 @@ local function get_action_diff(main_buf, tuple)
   local srow = 0
   local erow = 0
   for _, changes in pairs(all_changes) do
-    lsp.util.apply_text_edits(changes, tmp_buf, client.offset_encoding)
+    lsp.util.apply_text_edits(vim.tbl_extend('force', {}, changes), tmp_buf, client.offset_encoding)
     vim.tbl_map(function(item)
       srow = srow == 0 and item.range.start.line or srow
       erow = erow == 0 and item.range['end'].line or erow
